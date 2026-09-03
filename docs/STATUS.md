@@ -29,11 +29,11 @@ from the SDK fork at
 
 - Full resolve readback is required for visual correctness and causes large,
   hardware-dependent frame-rate drops.
-- A fresh rebuild in the current Clang/libc++ development environment stops
-  because the pinned SDK specializes `std::chrono::clock_time_conversion`,
-  which that standard library does not provide. The last validated executable
-  remains usable, but this SDK/toolchain mismatch must be resolved before
-  binary packaging.
+- Fresh Windows builds require one consistent C++ ABI. The SDK and FM4 now
+  build successfully with LLVM 22 targeting the MSVC ABI after adding a
+  feature-gated fallback for standard libraries that do not provide C++20
+  `clock_time_conversion` and `clock_cast`. Do not mix an MSVC-ABI SDK with a
+  MinGW/libc++ FM4 build; C++ runtime symbols will not link across that boundary.
 - The full campaign has not been completed. Sportsman is the current tested
   career boundary.
 - A 2x internal resolution test produced stained-glass texture corruption.
