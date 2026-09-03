@@ -7,6 +7,11 @@ This repository contains project source, recompilation metadata, and build
 configuration. It does not contain game data, Xbox system files, saves, or
 compiled executables. You must provide files from your own copy of the game.
 
+The project is licensed under `GPL-3.0-only`. The license applies only to
+material this project is entitled to license; it does not grant rights to game
+files or locally generated translation. See [License and content
+boundary](docs/LEGAL.md).
+
 ## Project status
 
 This is a development snapshot, not a packaged release. On the tested Windows
@@ -32,13 +37,12 @@ See [Current status](docs/STATUS.md) for the tested boundary and known issues.
 
 - Windows AMD64
 - Git, CMake 3.25 or newer, Ninja, and Clang
-- a locally built ReXGlue SDK
 - a legally obtained, extracted Forza Motorsport 4 game tree
 
 The current graphics baseline uses the project SDK fork at commit
 [`2746217`](https://github.com/Alexbeav/rexglue-sdk/commit/2746217dfae26976c07a9bbba32108fc50f3e220).
-That fork contains work which has not all been accepted upstream. Place its
-installed Windows SDK under `sdk/win-amd64`.
+That fork contains work which has not all been accepted upstream. The local
+builder obtains and builds the exact pinned source automatically.
 
 The project expects these game executables:
 
@@ -48,7 +52,23 @@ extracted/XMediaFacade_default.xex
 extracted/SpeechFacade_default.xex
 ```
 
-## Build
+## Local build
+
+The supported release path verifies the required Xbox executables, builds the
+pinned SDK, generates translation on your computer, and builds FM4:
+
+```powershell
+pwsh -File .\tools\Build-Local.ps1 -GameDataRoot "D:\Games\FM4-extracted"
+pwsh -File .\tools\Run-Local.ps1 -GameDataRoot "D:\Games\FM4-extracted"
+```
+
+Use `-ValidateOnly` on the build command to check the dump and toolchain
+without downloading or building the SDK. Local dependencies, generated code,
+and build outputs stay under `.local`; the retained development build is not
+modified. The run script also isolates profiles, saves, and caches under
+`.local/user`.
+
+## Developer build
 
 From the repository root:
 
@@ -96,6 +116,10 @@ the source directory.
 Do not commit extracted game files, generated source, user data, saves,
 diagnostic captures, installed SDK files, or compiled binaries. Inspect every
 staged change before publishing it.
+
+Public artifacts follow the [builder-first release process](docs/RELEASING.md):
+source and checksums only. The repository does not authorize publishing a
+precompiled FM4 executable or generated translation.
 
 This project is not affiliated with or endorsed by Microsoft, Xbox, Turn 10
 Studios, or the Forza franchise.

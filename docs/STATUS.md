@@ -11,6 +11,7 @@ Last validated: 2026-09-03 on Windows AMD64 with D3D12.
 | Modules | `XMediaFacade_default.xex` and `SpeechFacade_default.xex` load as recompiled modules. |
 | Disc 2 | The four FM4 marketplace packages install into user data. Installed cars appear in the browser and the menu no longer offers Disc 2 installation. |
 | Graphics | The validated native-resolution profile renders the tested player-car shadow, car materials, road lighting, and trackside assets correctly. |
+| Local release build | The builder-first path validates the three XEX inputs, builds SDK commit `f16992c`, generates all three modules in isolated local state, completes all 293 FM4 build steps, and remains running through a 15-second startup smoke test. |
 
 ## Validated graphics profile
 
@@ -45,6 +46,9 @@ from the SDK fork at
   graphics profile until the game regenerates them.
 - Online services and downloadable marketplace acquisition are outside the
   current test scope.
+- The builder-first source package is an internal review candidate. No public
+  release has been approved, and the isolated local build has not repeated the
+  full gameplay route above.
 
 The graphics configuration is a validated combination, not a fully isolated
 root-cause fix. Performance work must retain this profile as its correctness

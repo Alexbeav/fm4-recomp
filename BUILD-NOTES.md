@@ -1,6 +1,6 @@
 # FM4 build notes
 
-## Reproducible Windows toolchain
+## Pinned Windows toolchain
 
 Build the SDK and FM4 with the same C++ ABI. The validated packaging build uses
 LLVM 22's MSVC target (`C:\Program Files\LLVM\bin\clang++.exe`) for both. The
@@ -16,21 +16,19 @@ a symbolic-link mirror that may be checked out as one-line text files on
 Windows. These fixes are recorded in SDK commit
 [`f16992c`](https://github.com/Alexbeav/rexglue-sdk/commit/f16992c92e610c2d71773994436b442d9946f4e1).
 
-The validated clean SDK install is currently at:
+The builder-first release path installs the SDK under `.local\sdk-install` and
+builds FM4 under:
 
 ```text
-I:\Projects\Recomp-NonPSX\X360\rexglue-sdk-packaging-chrono\out\install\win-amd64-msvc
+.local\work\fm4\out\build\win-amd64-release
 ```
 
-The separately rebuilt FM4 package is currently at:
-
-```text
-F:\Games\fm4-pegasus-20260831\recomp\fm4\out\build\win-amd64-release-packaging-msvc
-```
-
-This packaging build completed all 293 targets and remained running for a
-15-second isolated startup smoke test. The retained known-good build at
-`fm4/out/build/win-amd64-release` was not modified.
+It asks the SDK CLI to generate its standard CMake bootstrap locally, copies
+only allowlisted project source into `.local\work`, and generates all
+game-derived translation there.
+The 2026-09-03 end-to-end test completed the 293-target FM4 build and a bounded
+15-second startup smoke test. The original known-good executable retained SHA-256
+`4339E81F9CE190099F8756616CEC2C8AA6BB105E33B38E577A103196D2311281`.
 
 ## Generated function registrar
 

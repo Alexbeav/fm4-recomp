@@ -1,0 +1,32 @@
+.gitignore
+BUILD-NOTES.md
+LICENSE
+Launch FM4 Disc 2 Install.bat
+Launch FM4.bat
+README.md
+Split FM4 Registrar.ps1
+THIRD_PARTY_NOTICES.md
+docs/CONTRIBUTIONS.md
+docs/LEGAL.md
+docs/RELEASING.md
+docs/STATUS.md
+docs/canonical-sources.md
+fm4/CMakeLists.txt
+fm4/CMakePresets.json
+fm4/fm4_functions.toml
+fm4/fm4_hooks.toml
+fm4/fm4_manifest.toml
+fm4/fm4_runtime.toml
+fm4/speechfacade_functions.toml
+fm4/src/fm4_app.cpp
+fm4/src/fm4_app.h
+fm4/src/hooks.cpp
+fm4/src/main.cpp
+fm4/xmediafacade_functions.toml
+release/release-policy.json
+release/source-files.txt
+tools/Build-Local.ps1
+tools/New-SourceRelease.ps1
+tools/Release.Common.ps1
+tools/Run-Local.ps1
+tools/Test-RepositoryBoundary.ps1

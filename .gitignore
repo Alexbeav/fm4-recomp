@@ -1,7 +1,6 @@
 extracted/
 sdk/
 seed-user-data/
-tools/
 fm4-locality-test/
 fm4/generated/
 fm4/out/
@@ -20,3 +19,6 @@ disc2-content/
 *.xdc
 *.pre-*
 *.bak
+fm4/fm4_manifest.local.toml
+.local/
+release-out/
