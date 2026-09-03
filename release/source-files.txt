@@ -8,6 +8,7 @@ Split FM4 Registrar.ps1
 THIRD_PARTY_NOTICES.md
 docs/CONTRIBUTIONS.md
 docs/LEGAL.md
+docs/RELEASE_NOTES.md
 docs/RELEASING.md
 docs/STATUS.md
 docs/canonical-sources.md

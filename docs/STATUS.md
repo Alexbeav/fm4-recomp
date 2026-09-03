@@ -11,7 +11,7 @@ Last validated: 2026-09-03 on Windows AMD64 with D3D12.
 | Modules | `XMediaFacade_default.xex` and `SpeechFacade_default.xex` load as recompiled modules. |
 | Disc 2 | The four FM4 marketplace packages install into user data. Installed cars appear in the browser and the menu no longer offers Disc 2 installation. |
 | Graphics | The validated native-resolution profile renders the tested player-car shadow, car materials, road lighting, and trackside assets correctly. |
-| Local release build | The builder-first path validates the three XEX inputs, builds SDK commit `f16992c`, generates all three modules in isolated local state, completes all 293 FM4 build steps, and remains running through a 15-second startup smoke test. |
+| Local release build | The builder-first path validates the three XEX inputs, builds SDK commit `f16992c`, generates all three modules in isolated local state, and completes all 293 FM4 build steps. The resulting executable passed startup smoke tests and an operator launch through first-profile setup and car selection. |
 
 ## Validated graphics profile
 
@@ -24,31 +24,40 @@ d3d12_readback_resolve_host_copy = true
 
 Use the default guest vblank rate. The validated GPU and runtime were built
 from the SDK fork at
-[`2746217`](https://github.com/Alexbeav/rexglue-sdk/commit/2746217dfae26976c07a9bbba32108fc50f3e220).
+[`f16992c`](https://github.com/Alexbeav/rexglue-sdk/commit/f16992c92e610c2d71773994436b442d9946f4e1).
 
-## Known limitations
+## Known issues
 
-- Full resolve readback is required for visual correctness and causes large,
-  hardware-dependent frame-rate drops.
+- Car-thumbnail generation is under investigation. A fresh isolated profile
+  generated a highly compressible blank thumbnail: the showroom background
+  rendered, but the car was missing. Blank results can persist in the
+  profile's thumbnail cache.
+- Full resolve readback is required for the current visual-correctness
+  baseline and has substantial, hardware-dependent synchronization cost. The
+  validated local build exhibited stutter and about 30 FPS while the host GPU
+  was only partly utilized. Performance and remaining visual issues are still
+  being improved.
+
+## Build and validation boundaries
+
 - Fresh Windows builds require one consistent C++ ABI. The SDK and FM4 now
   build successfully with LLVM 22 targeting the MSVC ABI after adding a
   feature-gated fallback for standard libraries that do not provide C++20
   `clock_time_conversion` and `clock_cast`. Do not mix an MSVC-ABI SDK with a
   MinGW/libc++ FM4 build; C++ runtime symbols will not link across that boundary.
-- The full campaign has not been completed. Sportsman is the current tested
-  career boundary.
+- Campaign progression is known good through Amateur and Clubman and into the
+  Sportsman tier. The campaign beyond Sportsman has not been validated.
 - A 2x internal resolution test produced stained-glass texture corruption.
 - A 120 Hz guest-vblank override improved throughput but reintroduced screen
   flicker and player-car texture corruption.
 - Automatic readback produced higher frame rates, but skipped resolves needed
   by FM4 and caused flickering, texture corruption, and heavy dips.
-- Generated car thumbnails may preserve artifacts created by an older broken
-  graphics profile until the game regenerates them.
 - Online services and downloadable marketplace acquisition are outside the
   current test scope.
-- The builder-first source package is an internal review candidate. No public
-  release has been approved, and the isolated local build has not repeated the
-  full gameplay route above.
+- The `v0.1.0-alpha.1` release is source-only. Users must supply the three
+  validated executable inputs from their own legally obtained game copy and
+  build locally; no game data, generated translation, or compiled executable
+  is distributed.
 
 The graphics configuration is a validated combination, not a fully isolated
 root-cause fix. Performance work must retain this profile as its correctness

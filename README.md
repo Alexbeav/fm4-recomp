@@ -14,12 +14,12 @@ boundary](docs/LEGAL.md).
 
 ## Project status
 
-This is a development snapshot, not a packaged release. On the tested Windows
-AMD64 system, the current tree can:
+This is an experimental alpha source release. On the tested Windows AMD64
+system, the current tree can:
 
 - boot into the game and load an existing profile;
 - complete races and save career progress;
-- progress from Amateur through Clubman and into Sportsman;
+- progress from Amateur through Clubman and into the Sportsman tier;
 - load the two facade modules used by the game;
 - install all four content packages from an extracted Disc 2; and
 - render the tested races without the rectangular player shadow, corrupt car
@@ -28,8 +28,23 @@ AMD64 system, the current tree can:
 The validated graphics profile is intentionally conservative. It uses native
 resolution, the D3D12 ROV path, full resolve readback, synchronous host-copy
 completion, and the default guest vblank rate. Full readback is expensive, so
-performance is not yet release quality. Higher internal resolution and timing
-overrides are also not considered safe.
+it can stutter and may run at about 30 FPS even when the host GPU is not fully
+utilized. Performance and remaining visual issues are still being improved.
+Higher internal resolution and timing overrides are not considered safe.
+
+## Known issues and tested boundary
+
+- Car-thumbnail generation is under investigation. A fresh profile can save a
+  blank thumbnail in which the showroom background is visible but the car is
+  missing; that result can then remain in the profile's thumbnail cache.
+- The correctness-oriented full-readback path has substantial,
+  hardware-dependent synchronization cost. Stutter, low host-GPU utilization,
+  and frame rates around 30 FPS are expected on some workloads while this path
+  is improved.
+
+Campaign progression is known good through entry into the Sportsman tier. The
+campaign beyond that point has not been validated and should not be treated as
+confirmed working.
 
 See [Current status](docs/STATUS.md) for the tested boundary and known issues.
 
@@ -39,10 +54,11 @@ See [Current status](docs/STATUS.md) for the tested boundary and known issues.
 - Git, CMake 3.25 or newer, Ninja, and Clang
 - a legally obtained, extracted Forza Motorsport 4 game tree
 
-The current graphics baseline uses the project SDK fork at commit
-[`2746217`](https://github.com/Alexbeav/rexglue-sdk/commit/2746217dfae26976c07a9bbba32108fc50f3e220).
-That fork contains work which has not all been accepted upstream. The local
-builder obtains and builds the exact pinned source automatically.
+The current release builder uses the project SDK fork at commit
+[`f16992c`](https://github.com/Alexbeav/rexglue-sdk/commit/f16992c92e610c2d71773994436b442d9946f4e1).
+That commit contains the validated graphics baseline plus Windows toolchain
+compatibility work which has not all been accepted upstream. The local builder
+obtains and builds the exact pinned source automatically.
 
 The project expects these game executables:
 
@@ -107,6 +123,7 @@ the source directory.
 
 ## Development notes
 
+- [Release notes](docs/RELEASE_NOTES.md)
 - [Current status and limitations](docs/STATUS.md)
 - [Reusable findings and upstream candidates](docs/CONTRIBUTIONS.md)
 - [Canonical documentation sources](docs/canonical-sources.md)
