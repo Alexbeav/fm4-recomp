@@ -1,0 +1,23 @@
+# Generated with the project SDK fork pinned in the repository README.
+
+[project]
+name = "fm4"
+sdk_version = "0.9.0"
+game_root = "../extracted"
+
+[entrypoint]
+file_path = "../extracted/default.xex"
+out_directory_path = "generated/default"
+includes = ["fm4_functions.toml", "fm4_hooks.toml"]
+
+[[modules]]
+file_path = "../extracted/XMediaFacade_default.xex"
+out_directory_path = "generated/xmediafacade"
+guest_path = "game:\\XMediaFacade_default.xex"
+includes = ["xmediafacade_functions.toml"]
+
+[[modules]]
+file_path = "../extracted/SpeechFacade_default.xex"
+out_directory_path = "generated/speechfacade"
+guest_path = "game:\\SpeechFacade_default.xex"
+includes = ["speechfacade_functions.toml"]

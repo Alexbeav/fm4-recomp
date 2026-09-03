@@ -1,0 +1,20 @@
+# Scoped startup-media patches.
+#
+# The Turn 10 descriptor uses skip mode 2. Dolby uses skip mode 1 and is
+# skippable. Change only the Turn 10 descriptor field to the Dolby value.
+[[midasm_hook]]
+name = "EnableTurn10MovieSkip"
+address = 0x826D52A0
+registers = ["r29"]
+
+[[midasm_hook]]
+name = "RestoreTurn10MovieMode"
+address = 0x826D52A4
+registers = ["r29"]
+
+# Force the allowskipvoiceover getter to report true. This changes only the
+# voice-over skip test and does not make saving or loading movies skippable.
+[[midasm_hook]]
+name = "EnableClarksonVoiceoverSkip"
+address = 0x825195DC
+registers = ["r3"]

@@ -1,0 +1,37 @@
+game_data_root = "../../../../extracted"
+user_data_root = "../../user"
+log_file = "fm4.log"
+mount_cache = true
+gpu_plugin = "xenos"
+gpu_allow_invalid_fetch_constants = true
+allow_game_relative_writes = true
+resolution_scale = 1
+# Build 94 validation baseline: native 1x, ROV, full resolve readback, and a
+# synchronous copy into the host-visible guest-RAM alias. This is the first
+# tested combination with correct car shadows, road lighting, car textures,
+# and trackside assets. Do not add a vblank override to the correctness preset.
+readback_resolve = "full"
+d3d12_readback_resolve_host_copy = true
+render_target_path_d3d12 = "rov"
+# The host has no D3D12 debug layer installed; command-prefix diagnostics
+# isolated the failure without it.
+d3d12_debug = false
+# FM4 creates BC textures with packed sub-block mip tails. This host rejects
+# their placed-footprint uploads at command-list Close(), so use the existing
+# decompression load path for the complete BC mip chain.
+d3d12_decompress_unaligned_block_textures = true
+d3d12_break_on_error = false
+d3d12_break_on_warning = false
+occlusion_query_enable = false
+query_occlusion_fake_sample_count = 100
+mnk_mode = true
+# FM4's validated profile requires full readback. Automatic readback caused
+# flickering and recurring texture corruption.
+# Disc 2 packages are accepted only after their STFS metadata identifies FM4
+# marketplace content. The dedicated launcher supplies its package folder with
+# FM4_DISC2_ROOT; this cvar provides the equivalent direct configuration path.
+# Normal launches use the files installed in user data.
+fm4_auto_install_disc2_content = true
+fm4_disc2_content_root = ""
+keybind_a = "Space"
+keybind_start = "Escape"
