@@ -11,6 +11,13 @@ Xbox executable files, saves, disc images, downloadable content, trademarks,
 or other third-party material. Users must provide their own legally obtained,
 extracted game data.
 
+The user-supplied hero artwork in `assets/fm4-recompiled-hero.png` contains
+third-party names, marks, and visual elements. Those elements are not covered
+by the project's GPL license grant. They remain the property of their
+respective owners and are shown only to identify the project. Their inclusion
+does not imply affiliation with or endorsement by Microsoft, Xbox, Turn 10
+Studios, Ferrari, or any other rights holder.
+
 ## Generated translation
 
 ReXGlue generates C++ from user-supplied Xbox executables. Generated

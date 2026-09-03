@@ -6,6 +6,7 @@ Launch FM4.bat
 README.md
 Split FM4 Registrar.ps1
 THIRD_PARTY_NOTICES.md
+assets/fm4-recompiled-hero.png
 docs/CONTRIBUTIONS.md
 docs/LEGAL.md
 docs/RELEASE_NOTES.md

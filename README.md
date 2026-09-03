@@ -1,5 +1,7 @@
 # Forza Motorsport 4 Recompiled
 
+![Forza Motorsport 4 Recompiled hero artwork](assets/fm4-recompiled-hero.png)
+
 An experimental static recompilation of the Xbox 360 version of Forza
 Motorsport 4 using [ReXGlue](https://github.com/rexglue/rexglue-sdk).
 

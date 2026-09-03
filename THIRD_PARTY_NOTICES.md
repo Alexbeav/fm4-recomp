@@ -15,3 +15,12 @@ the license texts applicable to a local build. Anyone who redistributes SDK
 files or locally produced binaries must preserve the notices and satisfy the
 licenses shipped with that exact SDK source. The FM4 source packager does not
 package those files.
+
+## Project artwork
+
+The repository includes the user-supplied project image
+`assets/fm4-recompiled-hero.png`. Names, logos, vehicle designs, and other
+third-party visual elements in that image are not offered under the project's
+GPL license. All such rights remain with their respective owners. The project
+is not affiliated with or endorsed by Microsoft, Xbox, Turn 10 Studios,
+Ferrari, or the Forza franchise.
