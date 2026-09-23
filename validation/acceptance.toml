@@ -1,0 +1,45 @@
+# Recomp Project Contract v1 — acceptance contract. PROPOSED until Alex accepts (X360 Work XW-1).
+# Mirrors the promotion gate in docs/PERFORMANCE-HANDOFF.md.
+contract_version = 1
+project_id = "X360-FM4"
+status = "proposed"
+
+required_artifacts = [
+  "validation run receipt with binary manifest hashes (B6 suite format)",
+  "runtime log and telemetry lines for the fixed race",
+  "screenshots of player-car shadow, car materials, road lighting and trackside assets",
+  "showroom and newly generated thumbnail captures on a clean cache",
+  "package receipt: 18 installed, 0 rejected",
+]
+
+[route]
+summary = "Fixed race on a clean cache with the 18-package install, then menus, save and exit"
+steps = [
+  "Start from a fresh copy of the frozen profile and a clean shader/thumbnail cache",
+  "Confirm 18 packages present and 0 rejected at startup",
+  "Open the showroom; generate at least one new car thumbnail",
+  "Run the fixed race to completion",
+  "Return to menus, save, exit normally",
+  "Compare frame time and one-percent lows against the known-good baseline",
+]
+time_bound = "about 30 minutes"
+
+[[milestones]]
+name = "packages_present"
+observation = "log: 0 installed, 18 already present, 0 rejected"
+
+[[milestones]]
+name = "visuals_correct"
+observation = "shadow, materials, road lighting, trackside and thumbnails match the baseline captures"
+
+[[milestones]]
+name = "race_completed"
+observation = "race result screen"
+
+[[milestones]]
+name = "clean_exit"
+observation = "save written and process exits with code 0, no device removal"
+
+[oracle]
+kind = "known-good-build"
+reference = "known-good EAGLE deployment on f16992c (correctness baseline in PERFORMANCE-HANDOFF.md)"

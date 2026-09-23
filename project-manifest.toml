@@ -1,0 +1,23 @@
+# Recomp Project Contract v1 — schema authority: X360-References/contract (SPEC.md).
+contract_version = 1
+project_id = "X360-FM4"
+title = "Forza Motorsport 4"
+platform = "xbox360"
+maturity = "playable"
+
+[identity]
+title_id = "4D530910"
+media_id = "42C67824"
+region = "Europe (Game of the Year)"
+guest_executable_sha256 = "B34DFB88978819CCCDA6DAFD755E7139970A58FBF6707DFBCBA06846857F52BD"
+
+[repo]
+url = "https://github.com/Alexbeav/fm4-recomp"
+
+[sdk]
+repo = "https://github.com/Alexbeav/rexglue-sdk"
+commit = "f16992c92e610c2d71773994436b442d9946f4e1"
+line = "ReXGlue workbench (known-good baseline)"
+
+[acceptance]
+contract = "validation/acceptance.toml"
