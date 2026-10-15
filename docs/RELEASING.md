@@ -36,6 +36,8 @@ It creates an unpublished prerelease draft and never publishes it automatically.
 The draft targets the exact workflow commit. Existing releases are not overwritten.
 Version tags are finalized when the approved draft is published.
 A failed check prevents draft creation.
+The workflow rejects a version whose Git tag already exists.
+Local source checks use temporary packaging directories and replace only the matching candidate ZIP and checksum after success.
 
 ## Public artifact boundary
 

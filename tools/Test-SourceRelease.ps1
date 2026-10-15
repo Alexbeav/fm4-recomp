@@ -13,9 +13,9 @@ foreach ($script in Get-ChildItem -LiteralPath $root -Recurse -Filter *.ps1 -Fil
     if ($parseErrors) { throw "PowerShell syntax error in $($script.FullName): $parseErrors" }
 }
 
-$first = Join-Path $root "release-out/candidate"
 $temporary = Join-Path ([IO.Path]::GetTempPath()) ("fm4-ci-" + [Guid]::NewGuid().ToString("N"))
 [void][IO.Directory]::CreateDirectory($temporary)
+$first = Join-Path $temporary "first"
 try {
     & (Join-Path $PSScriptRoot "New-SourceRelease.ps1") -Version $Version -OutputDirectory $first
     & (Join-Path $PSScriptRoot "New-SourceRelease.ps1") -Version $Version -OutputDirectory (Join-Path $temporary "second")
@@ -72,6 +72,9 @@ try {
         $rejected = $true
     }
     if (-not $rejected) { throw "Boundary accepted executable bytes in README.md" }
+    $candidate = Join-Path $root "release-out/candidate"
+    [void][IO.Directory]::CreateDirectory($candidate)
+    Copy-Item -LiteralPath $zip, "$zip.sha256" -Destination $candidate -Force
     Write-Host "Source checks passed: syntax, boundary, reproducibility, checksum, entries, provenance, payload, binary rejection."
 }
 finally { Remove-Item -LiteralPath $temporary -Recurse -Force }

@@ -42,6 +42,13 @@ jobs:
           GH_REPO: ${{ github.repository }}
           SOURCE_VERSION: ${{ inputs.version }}
         run: |
+          git ls-remote --exit-code --tags origin "refs/tags/v$SOURCE_VERSION" > /dev/null && {
+            echo "Refusing to reuse existing tag v$SOURCE_VERSION." >&2
+            exit 1
+          } || {
+            status=$?
+            if [ "$status" -ne 2 ]; then exit "$status"; fi
+          }
           gh release create "v$SOURCE_VERSION" \
             --target "$GITHUB_SHA" \
             --draft --prerelease \
