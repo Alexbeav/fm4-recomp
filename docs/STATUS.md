@@ -2,6 +2,13 @@
 
 Last validated: 2026-09-03 on Windows AMD64 with D3D12.
 
+## Release automation
+
+Source CI checks PowerShell syntax, release boundaries, archive reproducibility,
+checksums, and source provenance on Windows.
+The manual release workflow creates an unpublished draft from the tested source archive.
+These source checks do not establish a new gameplay validation date.
+
 ## Working
 
 | Area | Validated result |

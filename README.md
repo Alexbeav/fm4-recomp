@@ -14,6 +14,34 @@ material this project is entitled to license; it does not grant rights to game
 files or locally generated translation. See [License and content
 boundary](docs/LEGAL.md).
 
+## Download and start here
+
+This release is a source kit. You must build it before you can play.
+Download the named `fm4-recomp-source-<version>.zip` asset from
+[Releases](https://github.com/Alexbeav/fm4-recomp/releases).
+Extract the archive into a local folder.
+The automatic GitHub source downloads contain the repository, but do not contain a playable executable.
+
+Use Windows x64 and PowerShell 7 (`pwsh`), not Windows PowerShell 5.1.
+Install Git, CMake 3.25 or newer, Ninja, LLVM 22 with the MSVC target,
+and the Visual Studio C++ build tools with a Windows SDK.
+Use a Developer PowerShell session so the compiler can find the Windows libraries.
+See [Build notes](BUILD-NOTES.md) for the validated compiler constraints.
+
+Your extracted game folder must contain `default.xex`, `XMediaFacade_default.xex`,
+and `SpeechFacade_default.xex` directly inside it.
+The validated game is Europe Game of the Year, title ID `4D530910`, media ID `42C67824`.
+The builder rejects executable files that differ from the
+[validated input identities](release/release-policy.json).
+An ISO file alone is not an extracted game folder.
+
+Open PowerShell 7 in the extracted source folder, then use the commands under
+[Local build](#local-build).
+Run the build command once, then use the run command for later sessions.
+Keep the full extracted game tree available when you play.
+Use `Run-Local.ps1` with the same `-GameDataRoot` value for each session.
+The batch launchers expect your game tree in the source folder's `extracted` directory.
+
 ## Project status
 
 This is an experimental alpha source release. On the tested Windows AMD64
@@ -52,7 +80,7 @@ See [Current status](docs/STATUS.md) for the tested boundary and known issues.
 
 ## Requirements
 
-- Windows AMD64
+- Windows AMD64 and PowerShell 7
 - Git, CMake 3.25 or newer, Ninja, and Clang
 - a legally obtained, extracted Forza Motorsport 4 game tree
 
@@ -124,6 +152,12 @@ installation, normal launches use the copy in user data and no longer require
 the source directory.
 
 ## Development notes
+
+GitHub checks source packaging on pushes and pull requests.
+These checks do not compile or run the game.
+Maintainers prepare draft releases with the
+[release workflow](docs/RELEASING.md#github-automation).
+
 
 - [Release notes](docs/RELEASE_NOTES.md)
 - [Current status and limitations](docs/STATUS.md)

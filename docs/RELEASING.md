@@ -5,6 +5,38 @@ public release artifact currently authorized by the repository is a
 deterministic source archive plus its SHA-256 checksum. Do not publish any
 artifact until the project owner approves its exact contents and workflow.
 
+## GitHub automation
+
+`Source CI` runs on pull requests, pushes to `main` and `release/**`, and manual requests.
+It runs on a GitHub-hosted Windows 2025 runner with read-only repository access.
+Actions are pinned to exact commits. Dependabot checks those pins monthly.
+
+The workflow parses all PowerShell scripts and runs the repository boundary check.
+It creates the source archive twice and compares SHA-256 hashes.
+It inspects archive entries, the checksum, source provenance, and every payload hash.
+It also tests that the boundary rejects executable bytes under an allowed source filename.
+The workflow retains the archive and checksum as `source-release` for 14 days.
+
+These checks need no game files or private credentials.
+They do not build the SDK, generate game translation, or test gameplay.
+A green source check does not replace the local review gate below.
+
+To prepare a release:
+
+1. Merge the reviewed changes into `main` after `Source CI` passes.
+2. Open Actions and select `Prepare release`.
+3. Run the workflow on `main` with a version without `v`, such as `0.1.0-alpha.2`.
+4. Review the resulting draft, attached archive, checksum, and workflow run.
+5. Complete the local review gate below before you approve publication.
+
+The release workflow reuses the same source checks on the selected commit.
+Only its draft job receives repository write access.
+It attaches the tested archive and checksum without rebuilding them.
+It creates an unpublished prerelease draft and never publishes it automatically.
+The draft targets the exact workflow commit. Existing releases are not overwritten.
+Version tags are finalized when the approved draft is published.
+A failed check prevents draft creation.
+
 ## Public artifact boundary
 
 The source archive is built from the exact paths in

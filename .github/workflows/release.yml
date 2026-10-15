@@ -1,0 +1,52 @@
+name: Prepare release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version without v (for example, 0.1.0-alpha.2)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prepare-release
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/ci.yml
+    with:
+      version: ${{ inputs.version }}
+  draft:
+    name: Create draft for owner review
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: source-release
+          path: release-out/candidate
+      - name: Create draft with tested source archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SOURCE_VERSION: ${{ inputs.version }}
+        run: |
+          gh release create "v$SOURCE_VERSION" \
+            --target "$GITHUB_SHA" \
+            --draft --prerelease \
+            --title "FM4 Recompiled v$SOURCE_VERSION (source kit)" \
+            --notes-file docs/RELEASE_NOTES.md \
+            "release-out/candidate/fm4-recomp-source-$SOURCE_VERSION.zip" \
+            "release-out/candidate/fm4-recomp-source-$SOURCE_VERSION.zip.sha256"
+          echo 'Draft created. Publication requires owner approval and local gameplay evidence.' >> "$GITHUB_STEP_SUMMARY"

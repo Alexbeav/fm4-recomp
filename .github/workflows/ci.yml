@@ -1,0 +1,43 @@
+name: Source CI
+
+on:
+  push:
+    branches: [main, 'release/**']
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        default: 0.0.0-ci
+
+permissions:
+  contents: read
+
+concurrency:
+  group: source-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source:
+    name: Validate source release
+    runs-on: windows-2025
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check scripts, boundary, archive, and reproducibility
+        env:
+          SOURCE_VERSION: ${{ inputs.version || '0.0.0-ci' }}
+        run: ./tools/Test-SourceRelease.ps1 -Version $env:SOURCE_VERSION
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: source-release
+          path: release-out/candidate/*
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14

@@ -1,3 +1,6 @@
+.github/dependabot.yml
+.github/workflows/ci.yml
+.github/workflows/release.yml
 .gitignore
 BUILD-NOTES.md
 LICENSE
@@ -25,6 +28,7 @@ fm4/src/fm4_app.h
 fm4/src/hooks.cpp
 fm4/src/main.cpp
 fm4/xmediafacade_functions.toml
+project-manifest.toml
 release/release-policy.json
 release/source-files.txt
 tools/Build-Local.ps1
@@ -32,3 +36,6 @@ tools/New-SourceRelease.ps1
 tools/Release.Common.ps1
 tools/Run-Local.ps1
 tools/Test-RepositoryBoundary.ps1
+tools/Test-SourceRelease.ps1
+validation/acceptance.toml
+validation/runs/.gitkeep

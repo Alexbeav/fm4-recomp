@@ -1,5 +1,37 @@
 # Release notes
 
+## Source kit and GitHub automation
+
+This experimental source kit requires a local build before you can play.
+Download the named source ZIP asset and extract it into a local folder.
+Follow the [setup and build instructions](../README.md#download-and-start-here).
+
+The kit requires Windows x64, PowerShell 7, the documented compiler tools,
+and your own extracted Europe Game of the Year copy of Forza Motorsport 4.
+It contains no game data, generated translation, SDK binaries, or playable executable.
+The license is `GPL-3.0-only` within the [content boundary](LEGAL.md).
+
+GitHub now checks source packaging on pushes and pull requests.
+Maintainers can prepare a draft with the tested archive and SHA-256 checksum.
+The release allowlist now includes the project and acceptance manifests.
+These changes do not change game code or the validated SDK pin.
+
+## Tested behavior and limits
+
+Gameplay evidence remains the Windows AMD64 validation from 2026-09-03.
+Campaign progression is known good through Amateur and Clubman into Sportsman.
+Later campaign progression is unvalidated.
+The four Disc 2 packages can be installed from your own extracted media.
+Online services and marketplace acquisition are outside the tested scope.
+
+Fresh profiles can cache blank car thumbnails.
+The conservative graphics configuration can stutter and run at about 30 FPS.
+Higher resolution and timing overrides caused visual corruption in earlier tests.
+See [current status](STATUS.md) for the full tested boundary.
+
+Source CI checks packaging only. A new local build and gameplay review remain
+required before publication of a new release.
+
 ## v0.1.0-alpha.1
 
 This first experimental source release provides a builder-first path for
